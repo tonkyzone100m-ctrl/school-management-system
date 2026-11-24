@@ -1,0 +1,2 @@
+# Deny all direct web access to database dumps and schema files.
+Require all denied

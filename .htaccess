@@ -1,0 +1,21 @@
+# School Management System - Apache configuration (InfinityFree compatible)
+
+# Disable directory browsing.
+Options -Indexes
+
+# Block schema dumps, backups, logs, and documentation from web access.
+<FilesMatch "\.(sql|ini|log|bak|env|md)$">
+    Require all denied
+</FilesMatch>
+
+# Block direct HTTP access to configuration files. PHP includes are unaffected
+# because they read from disk, not over HTTP.
+<FilesMatch "^(config|config\.example)\.php$">
+    Require all denied
+</FilesMatch>
+
+# Defense in depth: deny access to script files placed in uploads/.
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteRule ^uploads/.*\.(php|phtml|php3|php4|php5|php7|phps|pht|phar|pl|py|cgi|sh)$ - [F,NC,L]
+</IfModule>
